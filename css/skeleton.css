@@ -401,89 +401,77 @@ on small devices, paste the mobile query code up in the buttons section and styl
 there.
 */
 
-h1, h2, h3, h4, h5, h6 {
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+h1, h2, h6 {
   margin: 0;
-  width: 100%;
-  bottom: 50%;
-  position: absolute;
   text-align: center;
-  line-height: 0;
 }
 
 /* Larger than mobile */
 @media (min-width: 320px) {
-  body {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+  header {
+    margin: 30px 0 60px 0;
   }
 
-  header, main, section, footer {
-    flex-grow: 1;
-  }
-
-  header, section, footer {
-    position: relative;
+  footer {
+    margin: 60px 0 30px 0;
   }
 
   main {
     display: flex;
-    flex-grow: 6;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /*align-content: center;*/
   }
 
-  .left, .right {
-    flex-grow: 3;
+  #left, #right {
+    width: 320px;
+    height: 320px;
+    border-style: solid;
+    border-width: 10px;
+    border-radius: 10px;
     background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
+    /*background-repeat: no-repeat;*/
+    /*background-position: center;*/
   }
 
-  .left:hover, .right:hover {
+  #middle {
+    width: 320px;
+    padding: 30px 30px;
+    height: 320px;
+  }
+
+  #left:hover, #right:hover {
     cursor: pointer;
   }
 
-  .left {
+  #left {
     background-image: url(../images/kittens/1.jpg);
+    border-color: #3498db;
   }
 
-  .vs {
-    flex-grow: 1;
-  }
-
-  .right {
+  #right {
     background-image: url(../images/kittens/2.jpg);
-  }
-
-  h2 {
-    color: #555;
-    mix-blend-mode: screen;
+    border-color: #e74c3c;
   }
 }
 
 /* Larger than phablet (also point when grid becomes active) */
-@media (min-width: 400px) {
+@media (min-width: 960px) {
+  h1 {
+    font-size: 90px;
+  }
+
   main {
-    flex-grow: 3;
     flex-direction: row;
-  }
-
-  .left, .right {
-    width: 33%;
-    flex-grow: 1;
-  }
-
-  .left {
-    margin-left: 5%;
-  }
-
-  .right {
-    margin-right: 5%;
-  }
-
-  .vs {
-    flex-grow: 2;
   }
 }
 
