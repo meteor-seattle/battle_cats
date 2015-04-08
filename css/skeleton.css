@@ -401,12 +401,91 @@ on small devices, paste the mobile query code up in the buttons section and styl
 there.
 */
 
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  width: 100%;
+  bottom: 50%;
+  position: absolute;
+  text-align: center;
+  line-height: 0;
+}
 
 /* Larger than mobile */
-@media (min-width: 400px) {}
+@media (min-width: 320px) {
+  body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  header, main, section, footer {
+    flex-grow: 1;
+  }
+
+  header, section, footer {
+    position: relative;
+  }
+
+  main {
+    display: flex;
+    flex-grow: 6;
+    flex-wrap: wrap;
+    flex-direction: column;
+  }
+
+  .left, .right {
+    flex-grow: 3;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+
+  .left:hover, .right:hover {
+    cursor: pointer;
+  }
+
+  .left {
+    background-image: url(../images/kittens/1.jpg);
+  }
+
+  .vs {
+    flex-grow: 1;
+  }
+
+  .right {
+    background-image: url(../images/kittens/2.jpg);
+  }
+
+  h2 {
+    color: #555;
+    mix-blend-mode: screen;
+  }
+}
 
 /* Larger than phablet (also point when grid becomes active) */
-@media (min-width: 550px) {}
+@media (min-width: 400px) {
+  main {
+    flex-grow: 3;
+    flex-direction: row;
+  }
+
+  .left, .right {
+    width: 33%;
+    flex-grow: 1;
+  }
+
+  .left {
+    margin-left: 5%;
+  }
+
+  .right {
+    margin-right: 5%;
+  }
+
+  .vs {
+    flex-grow: 2;
+  }
+}
 
 /* Larger than tablet */
 @media (min-width: 750px) {}
