@@ -408,7 +408,7 @@ html {
   box-sizing: inherit;
 }
 
-h1, h2, h6 {
+h1, h2, h3, h6, button {
   margin: 0;
   text-align: center;
 }
@@ -420,21 +420,25 @@ h1, h2, h6 {
   }
 
   footer {
-    margin: 60px 0 30px 0;
+    margin: 0 0 30px 0;
   }
 
   main {
     display: flex;
-    /*flex-wrap: wrap;*/
+    flex-wrap: wrap;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     /*align-content: center;*/
   }
 
-  #left, #right {
+  #left, #middle, #right {
     width: 320px;
     height: 320px;
+  }
+
+  #left, #right {
+    cursor: pointer;
     border-style: solid;
     border-width: 10px;
     border-radius: 10px;
@@ -444,23 +448,30 @@ h1, h2, h6 {
   }
 
   #middle {
-    width: 320px;
     padding: 30px 30px;
-    height: 320px;
-  }
-
-  #left:hover, #right:hover {
-    cursor: pointer;
   }
 
   #left {
-    background-image: url(../images/kittens/1.jpg);
     border-color: #3498db;
   }
 
   #right {
-    background-image: url(../images/kittens/2.jpg);
     border-color: #e74c3c;
+  }
+
+  .loser {
+    border-color: white;
+  }
+
+  #result {
+    width: 960px;
+    height: 84px;
+    margin: 20px 0;
+    text-align: center;
+  }
+
+  #winner, #next {
+    display: none;
   }
 }
 
