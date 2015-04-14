@@ -1,6 +1,6 @@
 $(function() {
-  var Photo = function(fileName) {
-    this.path = 'images/kittens/' + fileName;
+  var Photo = function(path) {
+    this.path = path;
     this.votes = 1;
   }
 
@@ -11,18 +11,35 @@ $(function() {
   var Tracker = function() {
     this.photos = [];
 
-    for (var i = 0; i < 14; i++) {
-      this.photos.push(new Photo(i + '.jpg'));
-    }
+    var xhr = $.ajax({
+      dataType: 'json',
+      headers: { Authorization: 'Client-ID a5ed186e4fdf274' },
+      url: 'https://api.imgur.com/3/album/DDoWy',
+      context: this
+    });
+
+    xhr.done(function(response) {
+      if (response.status === 200) {
+        var images = response.data.images;
+
+        for (var i = 0; i < images.length; i++) {
+          this.photos.push(new Photo(images[i].link));
+        }
+
+        this.voting();
+      }
+    });
 
     var context = $('#middle')[0].getContext('2d');
     this.chart = new Chart(context).Doughnut([
       {
+        value: 1,
         color: '#e74c3c',
         highlight: '#c0392b',
         label: 'Red'
       },
       {
+        value: 1,
         color: '#3498db',
         highlight: '#2980b9',
         label: 'Blue'
@@ -118,7 +135,7 @@ $(function() {
 
       this.$right.css({
         cursor: 'auto',
-        borderColor: 'e74c3c'
+        borderColor: '#e74c3c'
       });
 
       this.$left.css({
@@ -140,7 +157,6 @@ $(function() {
   }
 
   var tracker = new Tracker();
-  tracker.voting();
 
   var vote = function() {
     if (tracker.isProclaiming()) {
