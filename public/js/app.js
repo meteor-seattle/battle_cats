@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+$(function() {
   var Photo = function(fileName) {
     this.path = 'images/kittens/' + fileName;
     this.votes = 1;
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
       this.photos.push(new Photo(i + '.jpg'));
     }
 
-    var context = document.getElementById('middle').getContext('2d');
+    var context = $('#middle')[0].getContext('2d');
     this.chart = new Chart(context).Doughnut([
       {
         color: '#e74c3c',
@@ -28,6 +28,11 @@ document.addEventListener('DOMContentLoaded', function() {
         label: 'Blue'
       }
     ]);
+
+    this.$left = $('#left');
+    this.$right = $('#right');
+    this.$winner = $('#winner');
+    this.$next = $('#next');
   }
 
   Tracker.prototype.isVoting = function() {
@@ -69,15 +74,17 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   Tracker.prototype.drawKittens = function() {
-    var left = document.getElementById('left');
-    left.style.borderColor = '#3498db';
-    left.style.cursor = 'pointer';
-    left.style.backgroundImage = 'url(' + this.left.path + ')';
+    this.$left.css({
+      cursor: 'pointer',
+      borderColor: '#3498db',
+      backgroundImage: 'url(' + this.left.path + ')'
+    });
 
-    var right = document.getElementById('right');
-    right.style.borderColor = '#e74c3c';
-    right.style.cursor = 'pointer';
-    right.style.backgroundImage = 'url(' + this.right.path + ')';
+    this.$right.css({
+      cursor: 'pointer',
+      borderColor: '#e74c3c',
+      backgroundImage: 'url(' + this.right.path + ')'
+    });
   }
 
   Tracker.prototype.updateChart = function() {
@@ -87,44 +94,49 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   Tracker.prototype.resetResults = function() {
-    document.getElementById('winner').style.display = 'none';
-    document.getElementById('next').style.display = 'none';
+    this.$winner.css('display', 'none');
+    this.$next.css('display', 'none');
   }
 
   Tracker.prototype.castVote = function(winner) {
-    var left = document.getElementById('left');
-    var right = document.getElementById('right');
-
     if (winner === 'left') {
       this.left.vote();
 
-      left.style.borderColor = '#3498db';
-      left.style.cursor = 'auto';
+      this.$left.css({
+        cursor: 'auto',
+        borderColor: '#3498db'
+      });
 
-      right.style.borderColor = 'white';
-      right.style.cursor = 'auto';
+      this.$right.css({
+        cursor: 'auto',
+        borderColor: 'white'
+      });
 
       return 'Blue wins!';
     } else {
       this.right.vote();
 
-      right.style.borderColor = '#e74c3c';
-      right.style.cursor = 'auto';
+      this.$right.css({
+        cursor: 'auto',
+        borderColor: 'e74c3c'
+      });
 
-      left.style.borderColor = 'white';
-      left.style.cursor = 'auto';
+      this.$left.css({
+        cursor: 'auto',
+        borderColor: 'white'
+      });
 
       return 'Red wins!';
     }
   }
 
   Tracker.prototype.declareResults = function(message) {
-    var winner = document.getElementById('winner');
-    winner.style.display = 'block';
-    winner.textContent = message;
+    this.$winner.css({
+      display: 'block',
+      textContent: message
+    });
 
-    var next = document.getElementById('next');
-    next.style.display = 'inline-block';
+    this.$next.css('display', 'inline-block');
   }
 
   var tracker = new Tracker();
@@ -146,7 +158,6 @@ document.addEventListener('DOMContentLoaded', function() {
     tracker.voting();
   }
 
-  document.getElementById('left').addEventListener('click', vote);
-  document.getElementById('right').addEventListener('click', vote);
-  document.getElementById('next').addEventListener('click', declare);
+  $('#left, #right').on('click', vote);
+  $('#next').on('click', declare);
 });
