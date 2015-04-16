@@ -2,9 +2,9 @@
   "name": "battle_cats",
   "version": "0.1.0",
   "description": "Who's the cutest kitten?",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "express": "~4.9.x"
